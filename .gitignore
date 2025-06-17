@@ -1,0 +1,15 @@
+# 全局忽略
+
+# Node.js（前端依赖）
+node_modules/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# 其他
+.DS_Store
+
+Operation.txt
