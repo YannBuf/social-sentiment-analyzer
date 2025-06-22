@@ -1,15 +1,36 @@
-# È«¾ÖºöÂÔ
+# === Python / FastAPI åç«¯ ===
+__pycache__/
+*.py[cod]
+*.log
+*.env
+*.sqlite3
+*.db
 
-# Node.js£¨Ç°¶ËÒÀÀµ£©
-node_modules/
+# è™šæ‹Ÿç¯å¢ƒï¼ˆå¦‚æœæ”¾åœ¨ backend/ é‡Œï¼‰
+backend/.venv/
 
-# VSCode
+# === Node / React å‰ç«¯ ===
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# === PyCharm / JetBrains ===
+.idea/
+*.iml
+
+# === VSCode ===
 .vscode/
 
-# PyCharm
-.idea/
-
-# ÆäËû
+# === macOS / Windows ç³»ç»Ÿæ–‡ä»¶ ===
 .DS_Store
+Thumbs.db
+
+# === Jupyter / ä¸´æ—¶æ–‡ä»¶ ===
+.ipynb_checkpoints/
+*.bak
+*.tmp
+
 
 Operation.txt
+
+WorkLog.docx
