@@ -10,4 +10,4 @@ class Post(Base):
     category = Column(String(50))
     created_at = Column(TIMESTAMP)
 
-    author = relationship("User")
+    author = relationship("User", backref="posts")

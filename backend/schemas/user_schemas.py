@@ -6,4 +6,5 @@ class LoginRequest(BaseModel):
     password: str
 
 class LoginResponse(BaseModel):
+    id: int
     username: str

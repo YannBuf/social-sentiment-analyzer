@@ -23,7 +23,8 @@ const App = () => {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/forum" element={<Forum />} />
+
+        {/* 单独详情页面 */}
         <Route path="/forum/:id" element={<PostDetail />} />
 
         {/* 以下页面包裹在 Layout 中共享导航栏 */}

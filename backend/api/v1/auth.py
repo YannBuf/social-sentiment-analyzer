@@ -25,4 +25,4 @@ def login(data: user_schemas.LoginRequest, db: Session = Depends(get_db)):
     if not user or not bcrypt.verify(data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    return {"username": user.username}
+    return {"id": user.id, "username": user.username}
