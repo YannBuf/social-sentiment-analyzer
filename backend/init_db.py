@@ -1,4 +1,5 @@
 from db.database import Base, sync_engine
+from db.models import user
 
 def init():
     print("Creating database tables...")
