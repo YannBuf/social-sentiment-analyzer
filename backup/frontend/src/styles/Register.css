@@ -1,0 +1,13 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f6f8;
+}
+
+.register-paper {
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+}
