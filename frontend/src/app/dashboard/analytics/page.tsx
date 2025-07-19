@@ -17,7 +17,7 @@ import {
   LineChart as LineChartIcon,
   PieChart as PieChartIcon,
 } from "lucide-react"
-
+import { useAuth } from "@/app/contexts/authcontext"
 import {
   LineChart as RechartsLineChart,
   Line,
@@ -40,28 +40,32 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from "react"
 
 export default function AnalyticsPage() {
-  const user = {
-    name: "张三",
-    email: "zhangsan@example.com",
-    avatar: "/placeholder.svg?height=32&width=32",
-  }
+
+  const { user, logout } = useAuth()
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const searchParams = useSearchParams()
   const monitorId = searchParams.get('monitorId')
   const [analysisData, setAnalysisData] = useState<any>(null)
+
+  const displayUser = {
+    name: user?.username || user?.email || "匿名用户",
+    email: user?.email || "",
+    avatar: "/placeholder.svg?height=32&width=32",
+  }
 
   useEffect(() => {
     if (!monitorId) return
 
     const fetchAnalysis = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/monitor/${monitorId}/analysis`)
+        const res = await fetch(`${API_BASE}/monitor/${monitorId}/analysis`)
         if (res.ok) {
           const data = await res.json()
           setAnalysisData(data)
         }
       } catch (err) {
-        console.error("获取分析数据失败", err)
+        console.error("Failed to fetch analysis data", err)
       }
     }
 
@@ -73,57 +77,49 @@ export default function AnalyticsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <Navbar isAuthenticated={true} user={user} />
+      <Navbar
+        isAuthenticated={!!user}
+        user={user ? displayUser : undefined}
+        onLogout={logout}
+        forceMode="dashboard" // ✅ 加上这个
+      />
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumb />
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">数据分析报告</h1>
-            <p className="text-gray-300">深度洞察情感趋势和用户行为</p>
+            <h1 className="text-3xl font-bold text-white mb-2">Data Analysis Report</h1>
+            <p className="text-gray-300">In-depth insights into sentiment trends and user behavior</p>
           </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" className="bg-transparent border-white/20 text-white">
-              <Calendar className="mr-2 h-4 w-4" />
-              时间范围
-            </Button>
-            <Button variant="outline" className="bg-transparent border-white/20 text-white">
-              <Filter className="mr-2 h-4 w-4" />
-              筛选
-            </Button>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
-              <Download className="mr-2 h-4 w-4" />
-              导出报告
-            </Button>
-          </div>
+
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 bg-white/4 border-white/10">
             <TabsTrigger value="overview" className="data-[state=active]:bg-purple-500/20">
-              总览
+              Overview
             </TabsTrigger>
             <TabsTrigger value="sentiment" className="data-[state=active]:bg-purple-500/20">
-              情感分析
+              Sentiment Analysis
             </TabsTrigger>
             <TabsTrigger value="platforms" className="data-[state=active]:bg-purple-500/20">
-              平台分析
+              Platform Analysis
             </TabsTrigger>
             <TabsTrigger value="keywords" className="data-[state=active]:bg-purple-500/20">
-              关键词分析
+              Keyword Analysis
             </TabsTrigger>
           </TabsList>
 
-          {/* 总览 */}
+          {/* Overview */}
           <TabsContent value="overview" className="space-y-6">
-            {/* 关键指标 */}
+            {/* Key Metrics */}
             <div className="grid md:grid-cols-4 gap-6">
               <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">总提及量</p>
+                      <p className="text-gray-400 text-sm">Total Mentions</p>
                       <p className="text-2xl font-bold text-white">{overview.totalMentions ?? "--"}</p>
                       <div className="flex items-center mt-1">
                         <TrendingUp className="h-4 w-4 text-green-400 mr-1" />
@@ -141,7 +137,7 @@ export default function AnalyticsPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">情感得分</p>
+                      <p className="text-gray-400 text-sm">Sentiment Score</p>
                       <p className="text-2xl font-bold text-white">{overview.sentimentScore ?? "--"}</p>
                       <div className="flex items-center mt-1">
                         <TrendingUp className="h-4 w-4 text-green-400 mr-1" />
@@ -159,7 +155,7 @@ export default function AnalyticsPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">活跃用户</p>
+                      <p className="text-gray-400 text-sm">Active Users</p>
                       <p className="text-2xl font-bold text-white">{overview.activeUsers ?? "--"}</p>
                       <div className="flex items-center mt-1">
                         {overview.activeUsersChangePercent && overview.activeUsersChangePercent < 0 ? (
@@ -184,7 +180,7 @@ export default function AnalyticsPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">覆盖平台</p>
+                      <p className="text-gray-400 text-sm">Platforms Covered</p>
                       <p className="text-2xl font-bold text-white">{overview.platformCount ?? "--"}</p>
                       <div className="flex items-center mt-1">
                         <Globe className="h-4 w-4 text-blue-400 mr-1" />
@@ -197,13 +193,13 @@ export default function AnalyticsPage() {
               </Card>
             </div>
 
-            {/* 图表区域 */}
+            {/* Chart Area */}
             <div className="grid lg:grid-cols-2 gap-8">
               <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center">
                     <LineChartIcon className="mr-2 h-5 w-5" />
-                    情感趋势图
+                    Sentiment Trend Chart
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -228,7 +224,7 @@ export default function AnalyticsPage() {
                             dataKey="positive"
                             stroke="#a3e635"
                             strokeWidth={2}
-                            name="正面"
+                            name="Positive"
                             dot={{ r: 3 }}
                           />
                           <Line
@@ -236,7 +232,7 @@ export default function AnalyticsPage() {
                             dataKey="neutral"
                             stroke="#8b5cf6"
                             strokeWidth={2}
-                            name="中性"
+                            name="Neutral"
                             dot={{ r: 3 }}
                           />
                           <Line
@@ -244,7 +240,7 @@ export default function AnalyticsPage() {
                             dataKey="negative"
                             stroke="#f43f5e"
                             strokeWidth={2}
-                            name="负面"
+                            name="Negative"
                             dot={{ r: 3 }}
                           />
                         </RechartsLineChart>
@@ -254,8 +250,8 @@ export default function AnalyticsPage() {
                     <div className="h-64 bg-white/5 rounded-lg flex items-center justify-center">
                       <div className="text-center text-gray-400">
                         <LineChartIcon className="h-12 w-12 mx-auto mb-4" />
-                        <p>情感趋势图表</p>
-                        <p className="text-sm">（集成图表库后显示）</p>
+                        <p>Sentiment Trend Chart</p>
+                        <p className="text-sm">(Displayed after integrating chart library)</p>
                       </div>
                     </div>
                   )}
@@ -266,7 +262,7 @@ export default function AnalyticsPage() {
                 <CardHeader>
                   <CardTitle className="text-white flex items-center">
                     <PieChartIcon className="mr-2 h-5 w-5" />
-                    情感分布
+                    Sentiment Distribution
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -275,7 +271,7 @@ export default function AnalyticsPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                          <span className="text-gray-300">正面情感</span>
+                          <span className="text-gray-300">Positive Sentiment</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           <div className="w-32 bg-gray-700 rounded-full h-2">
@@ -290,7 +286,7 @@ export default function AnalyticsPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                          <span className="text-gray-300">中性情感</span>
+                          <span className="text-gray-300">Neutral Sentiment</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           <div className="w-32 bg-gray-700 rounded-full h-2">
@@ -305,7 +301,7 @@ export default function AnalyticsPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                          <span className="text-gray-300">负面情感</span>
+                          <span className="text-gray-300">Negative Sentiment</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           <div className="w-32 bg-gray-700 rounded-full h-2">
@@ -319,14 +315,14 @@ export default function AnalyticsPage() {
                       </div>
                     </div>
                   ) : (
-                    <div>暂无情感分布数据</div>
+                    <div>No sentiment distribution data available</div>
                   )}
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
 
-          {/* 其他标签页内容 */}
+          {/* Other Tabs Content */}
           <TabsContent value="sentiment" className="space-y-6">
             <SentimentAnalysis monitorId={monitorId} analysisData={analysisData} />
           </TabsContent>

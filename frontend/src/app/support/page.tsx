@@ -205,49 +205,10 @@ export default function SupportPage() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Resources */}
-          <div className="mt-16">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">Helpful Resources</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardContent className="p-6 text-center">
-                  <Book className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-                  <h3 className="text-white font-semibold mb-2">Documentation</h3>
-                  <p className="text-gray-300 text-sm mb-4">Comprehensive guides and best practices</p>
-                  <Button variant="outline" className="bg-transparent border-white/20 text-white">
-                    View Docs
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardContent className="p-6 text-center">
-                  <Video className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-                  <h3 className="text-white font-semibold mb-2">Video Tutorials</h3>
-                  <p className="text-gray-300 text-sm mb-4">Learn features quickly through videos</p>
-                  <Button variant="outline" className="bg-transparent border-white/20 text-white">
-                    Watch Videos
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardContent className="p-6 text-center">
-                  <MessageCircle className="h-12 w-12 text-green-400 mx-auto mb-4" />
-                  <h3 className="text-white font-semibold mb-2">Community Forum</h3>
-                  <p className="text-gray-300 text-sm mb-4">Exchange tips and experiences with other users</p>
-                  <Button variant="outline" className="bg-transparent border-white/20 text-white">
-                    Join Community
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
         </div>
       </section>
 
-      <Footer />
+
     </div>
   )
 }

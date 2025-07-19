@@ -18,7 +18,7 @@ interface MonitorCreateModalProps {
   }
 }
 
-const platformsList = ["Reddit", "X", "Facebook", "Youtube"]
+const platformsList = ["Reddit", "X", "Facebook", "YouTube"]
 
 export function MonitorCreateModal({ onClose, onCreate, initialData }: MonitorCreateModalProps) {
   const [name, setName] = useState(initialData?.name || "")
@@ -36,11 +36,11 @@ export function MonitorCreateModal({ onClose, onCreate, initialData }: MonitorCr
 
   const handleSubmit = () => {
     if (!name.trim()) {
-      alert("请输入监控名称")
+      alert("Please enter a monitor name")
       return
     }
     if (!keywords.trim()) {
-      alert("请输入关键词")
+      alert("Please enter keywords")
       return
     }
 
@@ -62,46 +62,46 @@ export function MonitorCreateModal({ onClose, onCreate, initialData }: MonitorCr
       >
         <Card className="bg-transparent shadow-none border-none">
           <CardHeader>
-            <CardTitle className="text-white">{initialData ? "编辑关键词监控" : "创建关键词监控"}</CardTitle>
-            <CardDescription className="text-gray-400">添加和管理您想要监控的关键词</CardDescription>
+            <CardTitle className="text-white">{initialData ? "Edit Keyword Monitor" : "Create Keyword Monitor"}</CardTitle>
+            <CardDescription className="text-gray-400">Add and manage the keywords you want to monitor</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <Label className="mb-1 block text-gray-300">监控名称</Label>
+              <Label className="mb-1 block text-gray-300">Monitor Name</Label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="例如: 品牌提及监控"
+                placeholder="e.g., Brand Mention Monitor"
                 className="bg-gray-800 text-white border-gray-700"
               />
             </div>
 
             <div>
-              <Label className="mb-1 block text-gray-300">监控频率</Label>
+              <Label className="mb-1 block text-gray-300">Monitoring Frequency</Label>
               <select
                 className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 text-white"
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
               >
-                <option value="realtime">实时监控</option>
-                <option value="hourly">每小时</option>
-                <option value="daily">每日</option>
+                <option value="realtime">Real-time</option>
+                <option value="hourly">Hourly</option>
+                <option value="daily">Daily</option>
               </select>
             </div>
 
             <div>
-              <Label className="mb-1 block text-gray-300">关键词列表</Label>
+              <Label className="mb-1 block text-gray-300">Keyword List</Label>
               <Input
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
-                placeholder="输入关键词，用逗号分隔"
+                placeholder="Enter keywords, separated by commas"
                 className="bg-gray-800 text-white border-gray-700"
               />
-              <p className="text-sm text-gray-500 mt-1">支持正则表达式和同义词扩展</p>
+              <p className="text-sm text-gray-500 mt-1">Supports regex and synonym expansion</p>
             </div>
 
             <div>
-              <Label className="mb-1 block text-gray-300">监控平台</Label>
+              <Label className="mb-1 block text-gray-300">Monitoring Platforms</Label>
               <div className="grid grid-cols-2 gap-2 max-h-32 overflow-auto">
                 {platformsList.map((platform) => (
                   <label key={platform} className="inline-flex items-center space-x-2 cursor-pointer text-white">
@@ -121,7 +121,7 @@ export function MonitorCreateModal({ onClose, onCreate, initialData }: MonitorCr
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
               onClick={handleSubmit}
             >
-              {initialData ? "保存修改" : "创建关键词监控"}
+              {initialData ? "Save Changes" : "Create Keyword Monitor"}
             </Button>
           </CardContent>
         </Card>

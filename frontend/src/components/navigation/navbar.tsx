@@ -29,14 +29,12 @@ const publicNavItems: NavItem[] = [
   { name: "Support", href: "/support", description: "Get help and assistance" },
 ]
 
-
-{/* { name: "Monitoring Center", href: "/dashboard/monitoring" }, */}
+// { name: "Monitoring Center", href: "/dashboard/monitoring" },
 const dashboardNavItems: NavItem[] = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Smart Search", href: "/search-analysis", description: "AI-powered content analysis" },
   { name: "Analytics Reports", href: "/dashboard/analytics" },
 ]
-
 
 interface NavbarProps {
   isAuthenticated?: boolean
@@ -45,26 +43,26 @@ interface NavbarProps {
     email: string
     avatar?: string
   }
-  forceMode?: "public" | "dashboard" // 新增：强制指定导航模式
+  forceMode?: "public" | "dashboard" // Added: force specify navigation mode
   onLogout?: () => void
 }
 
-export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }: NavbarProps) {
+export function Navbar({ isAuthenticated = false, user, forceMode, onLogout }: NavbarProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // 修复导航栏逻辑
+  // Fix navigation logic
   const getDashboardMode = () => {
     if (forceMode) return forceMode === "dashboard"
 
-    // 检查URL参数中是否有来源信息
+    // Check if URL params contain source info
     const from = searchParams.get("from")
     if (from === "dashboard") return true
     if (from === "home") return false
 
-    // 默认逻辑：dashboard路径下显示dashboard导航
-    // 对于/search-analysis页面，如果没有from参数且用户已认证，默认显示dashboard导航
+    // Default logic: show dashboard nav under /dashboard paths
+    // For /search-analysis page, if no 'from' param and user is authenticated, show dashboard nav by default
     if (pathname.startsWith("/dashboard")) return true
     if (pathname === "/search-analysis" && isAuthenticated && !from) return true
 
@@ -75,10 +73,22 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
   const navItems = isDashboard ? dashboardNavItems : publicNavItems
 
   const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/"
+    if (href === "/") return pathname === "/"
+
+    // Exact match or path starts with href + '/' counts as active
+    // But exclude certain subpages
+    if (pathname === href) return true
+    if (pathname.startsWith(href + "/")) {
+      // For example, for /dashboard, only activate on /dashboard and some /dashboard/* pages
+      // Here exclude some subpaths like analytics
+      if (href === "/dashboard") {
+        // If current page is /dashboard/analytics, do not activate /dashboard nav item
+        // You can customize this logic as needed, e.g., exclude paths starting with /dashboard/analytics
+        if (pathname.startsWith("/dashboard/analytics")) return false
+      }
+      return true
     }
-    return pathname.startsWith(href)
+    return false
   }
 
   return (
@@ -110,11 +120,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                {/* Notifications */}
-                <Button variant="ghost" size="icon" className="text-gray-300 hover:text-white relative">
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs"></span>
-                </Button>
+
 
                 {/* User Menu */}
                 <DropdownMenu>
@@ -126,32 +132,32 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
                           {user?.name?.charAt(0) || "U"}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="hidden md:block">{user?.name || "用户"}</span>
+                      <span className="hidden md:block">{user?.name || "User"}</span>
                       <ChevronDown className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56 bg-slate-800 border-slate-700">
                     <div className="px-2 py-1.5">
-                      <p className="text-sm font-medium text-white">{user?.name || "用户"}</p>
+                      <p className="text-sm font-medium text-white">{user?.name || "User"}</p>
                       <p className="text-xs text-gray-400">{user?.email || "user@example.com"}</p>
                     </div>
                     <DropdownMenuSeparator className="bg-slate-700" />
                     <DropdownMenuItem asChild className="text-gray-300 hover:text-white hover:bg-slate-700">
                       <Link href="/dashboard/profile" className="flex items-center">
                         <User className="mr-2 h-4 w-4" />
-                        个人资料
+                        Profile
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild className="text-gray-300 hover:text-white hover:bg-slate-700">
                       <Link href="/dashboard/settings" className="flex items-center">
                         <Settings className="mr-2 h-4 w-4" />
-                        账户设置
+                        Account Settings
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-slate-700" />
                     <DropdownMenuItem onClick={onLogout} className="text-red-400 hover:text-red-300 hover:bg-slate-700">
                       <LogOut className="mr-2 h-4 w-4" />
-                      退出登录
+                      Logout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -221,14 +227,14 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
                         asChild
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        <Link href="/login">登录</Link>
+                        <Link href="/login">Login</Link>
                       </Button>
                       <Button
                         className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
                         asChild
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        <Link href="/signup">免费试用</Link>
+                        <Link href="/signup">Free Trial</Link>
                       </Button>
                     </div>
                   )}
@@ -244,7 +250,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-white font-medium">{user?.name || "用户"}</p>
+                          <p className="text-white font-medium">{user?.name || "User"}</p>
                           <p className="text-gray-400 text-sm">{user?.email || "user@example.com"}</p>
                         </div>
                       </div>
@@ -254,7 +260,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <User className="h-4 w-4" />
-                        <span>个人资料</span>
+                        <span>Profile</span>
                       </Link>
                       <Link
                         href="/dashboard/settings"
@@ -262,14 +268,17 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout,  }:
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <Settings className="h-4 w-4" />
-                        <span>账户设置</span>
+                        <span>Account Settings</span>
                       </Link>
-                      <button onClick={() => {
-                        onLogout?.();
-                        setMobileMenuOpen(false)}}
-                        className="flex items-center space-x-2 p-3 text-red-400 hover:text-red-300 hover:bg-white/10 rounded-lg w-full text-left">
+                      <button
+                        onClick={() => {
+                          onLogout?.()
+                          setMobileMenuOpen(false)
+                        }}
+                        className="flex items-center space-x-2 p-3 text-red-400 hover:text-red-300 hover:bg-white/10 rounded-lg w-full text-left"
+                      >
                         <LogOut className="h-4 w-4" />
-                        <span>退出登录</span>
+                        <span>Logout</span>
                       </button>
                     </div>
                   )}

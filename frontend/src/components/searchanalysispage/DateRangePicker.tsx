@@ -13,12 +13,12 @@ export function DateRangePicker({ dateRange, setDateRange }: DateRangePickerProp
       mode="range"
       selected={dateRange}
       onSelect={setDateRange}
-      numberOfMonths={1} // 只显示一个月
+      numberOfMonths={1} // Display only one month
       className="p-4 bg-white rounded-md shadow-md"
       footer={
         dateRange?.from && dateRange?.to
-          ? `选中范围: ${dateRange.from.toLocaleDateString()} - ${dateRange.to.toLocaleDateString()}`
-          : "请选择时间范围"
+          ? `Selected range: ${dateRange.from.toLocaleDateString()} - ${dateRange.to.toLocaleDateString()}`
+          : "Please select a date range"
       }
     />
   );

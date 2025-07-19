@@ -23,7 +23,8 @@ import {
   TrendingDown,
 } from "lucide-react"
 import { Navbar } from "@/components/navigation/navbar"
-import { Footer } from "@/components/navigation/footer"
+
+
 import { useState } from "react"
 
 export default function ContactSalesPage() {

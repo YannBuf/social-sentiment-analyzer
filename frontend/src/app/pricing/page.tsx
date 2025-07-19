@@ -242,7 +242,7 @@ export default function PricingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-300">
-                  We support credit cards, debit cards, Alipay, WeChat Pay, and more. Enterprise clients may also use bank transfers and invoices.
+                  We accept major credit and debit cards, as well as PayPal, Apple Pay, and other popular payment methods. Enterprise clients can request bank transfers and invoicing.
                 </p>
               </CardContent>
             </Card>
@@ -293,8 +293,6 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

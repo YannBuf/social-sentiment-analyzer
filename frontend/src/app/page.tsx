@@ -54,7 +54,7 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
-              Leverage cutting-edge AI to monitor social sentiment trends, Supports major social media platforms like Twitter, TikTok, Instagram.
+              Leverage cutting-edge AI to monitor social sentiment trends, Supports major social media platforms like Facebook, Reddit, Youtube.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button
@@ -93,104 +93,73 @@ export default function HomePage() {
           </div>
 
           <div className="mx-auto mt-16 max-w-7xl">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-purple-500/20 rounded-lg">
-                      <Brain className="h-6 w-6 text-purple-400" />
-                    </div>
-                    <CardTitle className="text-white">AI-powered Analysis</CardTitle>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-purple-500/20 rounded-lg">
+                    <Brain className="h-6 w-6 text-purple-400" />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    Machine learning-based emotion recognition with up to 95% accuracy, supporting multi-language and complex context analysis
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  <CardTitle className="text-white">AI-powered Analysis</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-gray-300">
+                  Machine learning-based emotion recognition with up to 95% accuracy, supporting multi-language and complex context analysis
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-500/20 rounded-lg">
-                      <Globe className="h-6 w-6 text-blue-400" />
-                    </div>
-                    <CardTitle className="text-white">	Multi-Platform Coverage</CardTitle>
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-blue-500/20 rounded-lg">
+                    <Globe className="h-6 w-6 text-blue-400" />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    Supports major social media platforms like Twitter, TikTok, Instagram
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  <CardTitle className="text-white">Multi-Platform Coverage</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-gray-300">
+                  Supports major social media platforms like Facebook, Reddit, Youtube
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-green-500/20 rounded-lg">
-                      <Zap className="h-6 w-6 text-green-400" />
-                    </div>
-                    <CardTitle className="text-white">Real-time Monitoring</CardTitle>
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-500/20 rounded-lg">
+                    <Zap className="h-6 w-6 text-green-400" />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    24/7 real-time data collection and analysis, the first time to find changes in public opinion, timely warning of risks
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  <CardTitle className="text-white">Real-time Monitoring</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-gray-300">
+                  24/7 real-time data collection and analysis, the first time to find changes in public opinion, timely warning of risks
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-yellow-500/20 rounded-lg">
-                      <BarChart3 className="h-6 w-6 text-yellow-400" />
-                    </div>
-                    <CardTitle className="text-white">Visualized Reports</CardTitle>
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-yellow-500/20 rounded-lg">
+                    <BarChart3 className="h-6 w-6 text-yellow-400" />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    Rich charts and data visualizations to visualize sentiment trends and key metrics
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-red-500/20 rounded-lg">
-                      <Shield className="h-6 w-6 text-red-400" />
-                    </div>
-                    <CardTitle className="text-white">Data Security</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    Enterprise-grade data encryption and privacy protection, compliant with international data protection standards such as GDPR
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-pink-500/20 rounded-lg">
-                      <Users className="h-6 w-6 text-pink-400" />
-                    </div>
-                    <CardTitle className="text-white">Team Collaboration</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300">
-                    Supports multi-user collaboration, permission management, team sharing of analytics and insight reports
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </div>
+                  <CardTitle className="text-white">Visualized Reports</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-gray-300">
+                  Rich charts and data visualizations to visualize sentiment trends and key metrics
+                </CardDescription>
+              </CardContent>
+            </Card>
           </div>
+        </div>
+
         </div>
       </section>
 
@@ -213,7 +182,7 @@ export default function HomePage() {
                 <div className="mt-2 text-gray-300">Accuracy Rate</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-white">500+</div>
+                <div className="text-4xl font-bold text-white">100+</div>
                 <div className="mt-2 text-gray-300">Enterprise Clients</div>
               </div>
               <div className="text-center">

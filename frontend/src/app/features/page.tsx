@@ -14,15 +14,15 @@ export default function FeaturesPage() {
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          <Badge className="mb-6 bg-purple-500/20 text-purple-300 border-purple-500/30">🚀 全面的功能特性</Badge>
+          <Badge className="mb-6 bg-purple-500/20 text-purple-300 border-purple-500/30">🚀 Comprehensive Features</Badge>
           <h1 className="text-5xl font-bold text-white mb-6">
-            强大的AI驱动
+            Powerful AI-driven
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              情感分析平台
+              Sentiment Analysis Platform
             </span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            从数据采集到深度分析，从趋势预测到风险预警，我们提供完整的社交媒体情感分析解决方案
+            From data collection to deep analysis, trend forecasting to risk alerts — we provide a complete social media sentiment analysis solution.
           </p>
         </div>
       </section>
@@ -30,22 +30,22 @@ export default function FeaturesPage() {
       {/* Core Features */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-16">核心功能</h2>
+          <h2 className="text-4xl font-bold text-white text-center mb-16">Core Features</h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-20">
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
               <CardHeader>
                 <Globe className="h-12 w-12 text-blue-400 mb-4" />
-                <CardTitle className="text-white">多平台数据采集</CardTitle>
+                <CardTitle className="text-white">Multi-Platform Data Collection</CardTitle>
                 <CardDescription className="text-gray-300">
-                  支持微博、抖音、小红书、知乎等20+主流社交平台的实时数据采集，覆盖全网舆情
+                  Supports real-time data collection from 20+ mainstream platforms like Twitter, TikTok, Instagram, Reddit — covering global social sentiments.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 实时数据流处理</li>
-                  <li>• 多源数据整合</li>
-                  <li>• 自动去重和清洗</li>
+                  <li>• Real-time data stream processing</li>
+                  <li>• Multi-source data integration</li>
+                  <li>• Automated deduplication and cleaning</li>
                 </ul>
               </CardContent>
             </Card>
@@ -53,117 +53,87 @@ export default function FeaturesPage() {
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
               <CardHeader>
                 <Brain className="h-12 w-12 text-purple-400 mb-4" />
-                <CardTitle className="text-white">AI情感识别</CardTitle>
+                <CardTitle className="text-white">AI Sentiment Detection</CardTitle>
                 <CardDescription className="text-gray-300">
-                  基于BERT和GPT的深度学习模型，支持中文情感细粒度分析，准确率高达95%
+                  Deep learning models powered by BERT and GPT, supporting fine-grained sentiment analysis with up to 95% accuracy.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 多维度情感分析</li>
-                  <li>• 情感强度量化</li>
-                  <li>• 讽刺和隐含情感识别</li>
+                  <li>• Multi-dimensional sentiment analysis</li>
+                  <li>• Sentiment intensity quantification</li>
+                  <li>• Sarcasm and implicit sentiment detection</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
-              <CardHeader>
-                <TrendingUp className="h-12 w-12 text-green-400 mb-4" />
-                <CardTitle className="text-white">趋势预测分析</CardTitle>
-                <CardDescription className="text-gray-300">
-                  基于时间序列分析和机器学习算法，预测情感趋势变化，提前洞察舆情风险
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 7天趋势预测</li>
-                  <li>• 异常检测算法</li>
-                  <li>• 季节性分析</li>
-                </ul>
-              </CardContent>
-            </Card>
+ 
 
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
               <CardHeader>
                 <MessageSquare className="h-12 w-12 text-yellow-400 mb-4" />
-                <CardTitle className="text-white">智能关键词监控</CardTitle>
+                <CardTitle className="text-white">Smart Keyword Monitoring</CardTitle>
                 <CardDescription className="text-gray-300">
-                  自定义关键词和话题监控，支持正则表达式和语义匹配，实时追踪品牌提及
+                  Custom keyword and topic monitoring with regex and semantic matching to track brand mentions in real-time.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 智能关键词扩展</li>
-                  <li>• 同义词自动识别</li>
-                  <li>• 竞品监控对比</li>
+                  <li>• Intelligent keyword expansion</li>
+                  <li>• Automatic synonym recognition</li>
+                  <li>• Competitor monitoring & comparison</li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
-              <CardHeader>
-                <Users className="h-12 w-12 text-pink-400 mb-4" />
-                <CardTitle className="text-white">用户画像分析</CardTitle>
-                <CardDescription className="text-gray-300">
-                  深度分析用户群体特征，构建多维度用户画像，洞察目标受众偏好
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 人口统计学分析</li>
-                  <li>• 兴趣偏好挖掘</li>
-                  <li>• 行为模式识别</li>
-                </ul>
-              </CardContent>
-            </Card>
+
 
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
               <CardHeader>
                 <BarChart3 className="h-12 w-12 text-cyan-400 mb-4" />
-                <CardTitle className="text-white">可视化报告</CardTitle>
+                <CardTitle className="text-white">Visual Reporting</CardTitle>
                 <CardDescription className="text-gray-300">
-                  丰富的图表类型和报告模板，支持自定义仪表板，数据洞察一目了然
+                  Rich chart types and report templates, with customizable dashboards for instant data insights.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-400 space-y-2">
-                  <li>• 交互式图表</li>
-                  <li>• 自动报告生成</li>
-                  <li>• 多格式导出</li>
+                  <li>• Interactive charts</li>
+                  <li>• Automated report generation</li>
+                  <li>• Multi-format export</li>
                 </ul>
               </CardContent>
             </Card>
           </div>
 
           {/* Advanced Features */}
-          <h2 className="text-4xl font-bold text-white text-center mb-16">高级功能</h2>
+          <h2 className="text-4xl font-bold text-white text-center mb-16">Advanced Features</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-gradient-to-r from-red-500/10 to-orange-500/10 border-red-500/20 backdrop-blur-sm">
               <CardHeader>
                 <AlertTriangle className="h-12 w-12 text-red-400 mb-4" />
-                <CardTitle className="text-white">舆情预警系统</CardTitle>
+                <CardTitle className="text-white">Sentiment Risk Alerts</CardTitle>
                 <CardDescription className="text-gray-300">
-                  智能识别负面舆情，多级预警机制，支持邮件、短信、webhook等多种通知方式
+                  Intelligent detection of negative sentiment with multi-level alerting via email, SMS, webhook, and more.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="text-gray-400">
-                    <div className="font-semibold text-white mb-2">预警级别</div>
+                    <div className="font-semibold text-white mb-2">Alert Levels</div>
                     <ul className="space-y-1">
-                      <li>• 低风险提醒</li>
-                      <li>• 中风险警告</li>
-                      <li>• 高风险紧急</li>
+                      <li>• Low risk reminder</li>
+                      <li>• Medium risk warning</li>
+                      <li>• High risk emergency</li>
                     </ul>
                   </div>
                   <div className="text-gray-400">
-                    <div className="font-semibold text-white mb-2">通知方式</div>
+                    <div className="font-semibold text-white mb-2">Notification Channels</div>
                     <ul className="space-y-1">
-                      <li>• 实时邮件通知</li>
-                      <li>• 短信预警</li>
-                      <li>• API回调</li>
+                      <li>• Real-time email alerts</li>
+                      <li>• SMS notifications</li>
+                      <li>• API callbacks</li>
                     </ul>
                   </div>
                 </div>
@@ -173,27 +143,27 @@ export default function FeaturesPage() {
             <Card className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-blue-500/20 backdrop-blur-sm">
               <CardHeader>
                 <Database className="h-12 w-12 text-blue-400 mb-4" />
-                <CardTitle className="text-white">大数据处理</CardTitle>
+                <CardTitle className="text-white">Big Data Processing</CardTitle>
                 <CardDescription className="text-gray-300">
-                  分布式架构支持海量数据处理，实时计算引擎确保毫秒级响应
+                  Distributed architecture for massive data processing, with real-time computing engines for millisecond-level response.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="text-gray-400">
-                    <div className="font-semibold text-white mb-2">处理能力</div>
+                    <div className="font-semibold text-white mb-2">Processing Capacity</div>
                     <ul className="space-y-1">
-                      <li>• 千万级数据/天</li>
-                      <li>• 实时流处理</li>
-                      <li>• 弹性扩容</li>
+                      <li>• 10M+ records per day</li>
+                      <li>• Real-time stream processing</li>
+                      <li>• Elastic scalability</li>
                     </ul>
                   </div>
                   <div className="text-gray-400">
-                    <div className="font-semibold text-white mb-2">技术架构</div>
+                    <div className="font-semibold text-white mb-2">Technical Architecture</div>
                     <ul className="space-y-1">
-                      <li>• 微服务架构</li>
-                      <li>• 容器化部署</li>
-                      <li>• 高可用保障</li>
+                      <li>• Microservices architecture</li>
+                      <li>• Containerized deployment</li>
+                      <li>• High availability assurance</li>
                     </ul>
                   </div>
                 </div>
@@ -209,23 +179,23 @@ export default function FeaturesPage() {
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div className="bg-white/5 rounded-lg p-6 backdrop-blur-sm">
               <div className="text-4xl font-bold text-purple-400 mb-2">95%</div>
-              <div className="text-white font-semibold mb-1">情感识别准确率</div>
-              <div className="text-gray-400 text-sm">基于大规模中文语料训练</div>
+              <div className="text-white font-semibold mb-1">Sentiment Accuracy</div>
+              <div className="text-gray-400 text-sm">Trained on massive multilingual corpora</div>
             </div>
             <div className="bg-white/5 rounded-lg p-6 backdrop-blur-sm">
               <div className="text-4xl font-bold text-blue-400 mb-2">20+</div>
-              <div className="text-white font-semibold mb-1">支持平台数量</div>
-              <div className="text-gray-400 text-sm">覆盖主流社交媒体</div>
+              <div className="text-white font-semibold mb-1">Supported Platforms</div>
+              <div className="text-gray-400 text-sm">Covering mainstream social media</div>
             </div>
             <div className="bg-white/5 rounded-lg p-6 backdrop-blur-sm">
-              <div className="text-4xl font-bold text-green-400 mb-2">1000万+</div>
-              <div className="text-white font-semibold mb-1">日处理数据量</div>
-              <div className="text-gray-400 text-sm">实时处理海量数据</div>
+              <div className="text-4xl font-bold text-green-400 mb-2">10M+</div>
+              <div className="text-white font-semibold mb-1">Daily Data Processed</div>
+              <div className="text-gray-400 text-sm">Real-time massive data handling</div>
             </div>
             <div className="bg-white/5 rounded-lg p-6 backdrop-blur-sm">
               <div className="text-4xl font-bold text-yellow-400 mb-2">99.9%</div>
-              <div className="text-white font-semibold mb-1">系统可用性</div>
-              <div className="text-gray-400 text-sm">7x24小时稳定运行</div>
+              <div className="text-white font-semibold mb-1">System Uptime</div>
+              <div className="text-gray-400 text-sm">24/7 stable operations</div>
             </div>
           </div>
         </div>
@@ -234,25 +204,23 @@ export default function FeaturesPage() {
       {/* CTA Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">准备体验强大的功能？</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Ready to Experience the Power?</h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            立即注册，免费试用所有功能，体验AI驱动的社交情感分析平台
+            Sign up now for a free trial of all features — experience the AI-driven social sentiment analysis platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
             >
-              <Link href="/signup">免费开始试用</Link>
+              <Link href="/signup">Start Free Trial</Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10">
-              <Link href="/demo">查看产品演示</Link>
+              <Link href="/demo">View Demo</Link>
             </Button>
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

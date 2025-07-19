@@ -29,7 +29,7 @@ import {
   pauseMonitor,
   resumeMonitor,
   deleteMonitor,
-  updateMonitor
+  updateMonitor,
 } from "@/lib/api"
 
 interface Monitor {
@@ -54,71 +54,70 @@ export default function DashboardPage() {
   const [editModalData, setEditModalData] = useState<Monitor | null>(null)
 
   const displayUser = {
-    name: user?.username || user?.email || "匿名用户",
+    name: user?.username || user?.email || "Anonymous User",
     email: user?.email || "",
     avatar: "/placeholder.svg?height=32&width=32",
   }
 
-  // 从 localStorage 取token
+  // Retrieve token from localStorage
   const token = typeof window !== "undefined" ? localStorage.getItem("token") || "" : ""
 
-  // 拉取监控列表
+  // Fetch monitor list
   const loadMonitors = async () => {
     if (!token) return
     setLoading(true)
     try {
       const data = await fetchMonitors(token)
-      console.log("当前监控任务列表：", monitors)
+      console.log("Current monitor tasks:", data)
       setMonitors(data)
     } catch (error) {
-      console.error("拉取监控失败", error)
+      console.error("Failed to fetch monitors", error)
     } finally {
       setLoading(false)
     }
   }
 
-  // user 一旦加载，自动拉监控
+  // Automatically load monitors when user is available
   useEffect(() => {
     if (user) {
       loadMonitors()
     }
   }, [user])
 
-  // 暂停监控
+  // Pause monitor
   const handlePause = async (id: number) => {
     if (!token) return
     try {
       await pauseMonitor(token, id)
       setMonitors((prev) => prev.map((m) => (m.id === id ? { ...m, status: "paused" } : m)))
     } catch (err) {
-      console.error("暂停失败", err)
+      console.error("Failed to pause monitor", err)
     }
   }
 
-  // 恢复监控
+  // Resume monitor
   const handleResume = async (id: number) => {
     if (!token) return
     try {
       await resumeMonitor(token, id)
       setMonitors((prev) => prev.map((m) => (m.id === id ? { ...m, status: "active" } : m)))
     } catch (err) {
-      console.error("恢复失败", err)
+      console.error("Failed to resume monitor", err)
     }
   }
 
-  // 删除监控
+  // Delete monitor
   const handleDelete = async (id: number) => {
     if (!token) return
-    if (!confirm("确认删除该监控吗？")) return
+    if (!confirm("Are you sure you want to delete this monitor?")) return
     try {
       await deleteMonitor(token, id)
       setMonitors((prev) => prev.filter((m) => m.id !== id))
     } catch (err) {
-      console.error("删除失败", err)
+      console.error("Failed to delete monitor", err)
     }
   }
 
-  // 创建监控
   interface MonitorCreateData {
     name: string
     frequency: string
@@ -126,6 +125,7 @@ export default function DashboardPage() {
     platforms: string[]
   }
 
+  // Create monitor
   const handleCreateMonitor = async (data: MonitorCreateData) => {
     if (!token) return
     try {
@@ -139,31 +139,34 @@ export default function DashboardPage() {
         sentiment: { positive: 0, neutral: 0, negative: 0 },
         mentions: 0,
         trend: "up",
-        lastUpdate: "待分析",
+        lastUpdate: "Pending analysis",
       }
-      console.log("创建监控结果", res)
+      console.log("Monitor created:", res)
       setMonitors((prev) => [...prev, newMonitor])
       pollMonitorResult(res.task_id)
     } catch (error) {
-      console.error("创建监控失败", error)
+      console.error("Failed to create monitor", error)
     } finally {
       setIsModalOpen(false)
     }
   }
 
+  // Update monitor
   const handleUpdateMonitor = async (data: any) => {
     if (!token) return
     try {
-      // 兼容 keywords 可能是字符串，也可能是数组
+      // Ensure keywords is an array
       const keywordsArray = Array.isArray(data.keywords)
         ? data.keywords
         : data.keywords.split(",").map((k: string) => k.trim())
 
+      // Similarly handle platforms possibly as string or array
+      const platformsArray = Array.isArray(data.platforms) ? data.platforms : [data.platforms]
+
       await updateMonitor(token, data.id, {
         ...data,
         keywords: keywordsArray,
-        // 如果 platforms 也可能是字符串，同理处理
-        platforms: Array.isArray(data.platforms) ? data.platforms : [data.platforms],
+        platforms: platformsArray,
       })
 
       setMonitors((prev) =>
@@ -174,19 +177,19 @@ export default function DashboardPage() {
                 name: data.name,
                 frequency: data.frequency,
                 keywords: keywordsArray,
-                platforms: Array.isArray(data.platforms) ? data.platforms : [data.platforms],
+                platforms: platformsArray,
               }
             : m
         )
       )
     } catch (err) {
-      console.error("更新监控失败", err)
+      console.error("Failed to update monitor", err)
     } finally {
       setEditModalData(null)
     }
   }
 
-  // 轮询任务结果，更新状态
+  // Poll monitor status and update
   const pollMonitorResult = (monitorId: number) => {
     const intervalId = setInterval(async () => {
       try {
@@ -203,19 +206,19 @@ export default function DashboardPage() {
                     lastUpdate: new Date().toLocaleTimeString(),
                     status: "active",
                   }
-                : m,
-            ),
+                : m
+            )
           )
           clearInterval(intervalId)
         }
       } catch (error) {
-        console.error("轮询失败", error)
+        console.error("Polling failed", error)
         clearInterval(intervalId)
       }
     }, 3000)
   }
 
-  // 退出登录
+  // Logout
   const handleLogout = () => {
     logout()
     router.replace("/login")
@@ -247,13 +250,13 @@ export default function DashboardPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-white">监控任务</h2>
+                <h2 className="text-xl font-bold text-white">Monitoring Tasks</h2>
                 <Button
                   onClick={() => setIsModalOpen(true)}
                   className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
                 >
                   <Plus className="mr-2 h-4 w-4" />
-                  创建监控
+                  Create Monitor
                 </Button>
               </div>
               <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
@@ -272,7 +275,7 @@ export default function DashboardPage() {
                                     : "bg-gray-500/20 text-gray-400"
                                 }
                               >
-                                {monitor.status === "active" ? "运行中" : "已暂停"}
+                                {monitor.status === "active" ? "Active" : "Paused"}
                               </Badge>
                               {monitor.trend === "up" ? (
                                 <TrendingUp className="h-4 w-4 text-green-400" />
@@ -282,7 +285,7 @@ export default function DashboardPage() {
                             </div>
                             <div className="grid md:grid-cols-4 gap-4 text-sm">
                               <div>
-                                <p className="text-gray-400">关键词</p>
+                                <p className="text-gray-400">Keywords</p>
                                 <div className="flex flex-wrap gap-1 mt-1">
                                   {monitor.keywords?.slice(0, 2).map((keyword, index) => (
                                     <Badge
@@ -300,22 +303,22 @@ export default function DashboardPage() {
                                 </div>
                               </div>
                               <div>
-                                <p className="text-gray-400">监控平台</p>
+                                <p className="text-gray-400">Platforms</p>
                                 <div className="flex items-center space-x-1 mt-1">
                                   <Globe className="h-3 w-3 text-gray-400" />
                                   <span className="text-white">
-                                    {monitor.platforms?.length ?? 0} 个平台
+                                    {monitor.platforms?.length ?? 0} platforms
                                   </span>
                                 </div>
                               </div>
                               <div>
-                                <p className="text-gray-400">提及数量</p>
+                                <p className="text-gray-400">Mentions</p>
                                 <p className="text-white font-semibold">
                                   {monitor.mentions.toLocaleString()}
                                 </p>
                               </div>
                               <div>
-                                <p className="text-gray-400">情感分布</p>
+                                <p className="text-gray-400">Sentiment Distribution</p>
                                 <div className="flex items-center space-x-2 mt-1">
                                   <div className="flex items-center space-x-1">
                                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -332,7 +335,7 @@ export default function DashboardPage() {
                                 </div>
                               </div>
                             </div>
-                            <p className="text-gray-400 text-xs mt-2">最后更新: {monitor.lastUpdate}</p>
+                            <p className="text-gray-400 text-xs mt-2">Last updated: {monitor.lastUpdate}</p>
                           </div>
                           <div className="flex items-center space-x-2">
                             <Button
@@ -356,7 +359,7 @@ export default function DashboardPage() {
                               {monitor.status === "active" ? (
                                 <Pause className="h-3 w-3" />
                               ) : (
-                                <Play className="h-3 w-3" /> 
+                                <Play className="h-3 w-3" />
                               )}
                             </Button>
                             <Button
@@ -422,7 +425,6 @@ export default function DashboardPage() {
             onCreate={handleUpdateMonitor}
           />
         )}
-
       </div>
     </RequireAuth>
   )

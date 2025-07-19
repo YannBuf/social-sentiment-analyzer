@@ -21,16 +21,17 @@ interface SentimentAnalysisProps {
 export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps) {
   const [sentimentTrendData, setSentimentTrendData] = useState([])
   const [sentimentIntensityData, setSentimentIntensityData] = useState([])
-
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
+  
   useEffect(() => {
     if (!monitorId) return
 
-    fetch(`http://localhost:8000/api/sentiment/trend?monitorId=${monitorId}`)
+    fetch(`${API_BASE}/sentiment/trend?monitorId=${monitorId}`)
       .then((res) => res.json())
       .then((data) => setSentimentTrendData(data))
       .catch(console.error)
 
-    fetch(`http://localhost:8000/api/sentiment/intensity?monitorId=${monitorId}`)
+    fetch(`${API_BASE}/sentiment/intensity?monitorId=${monitorId}`)
       .then((res) => res.json())
       .then((data) => setSentimentIntensityData(data))
       .catch(console.error)
@@ -38,12 +39,12 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* 情绪趋势折线图 */}
+      {/* Sentiment Trend Line Chart */}
       <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <Heart className="mr-2 h-5 w-5 text-purple-400" />
-            情绪趋势（最近7天）
+            Sentiment Trend (Last 7 Days)
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -67,7 +68,7 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
                   dataKey="positive"
                   stroke="#a3e635"
                   strokeWidth={2}
-                  name="正面"
+                  name="Positive"
                   dot={{ r: 3 }}
                 />
                 <Line
@@ -75,7 +76,7 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
                   dataKey="neutral"
                   stroke="#8b5cf6"
                   strokeWidth={2}
-                  name="中性"
+                  name="Neutral"
                   dot={{ r: 3 }}
                 />
                 <Line
@@ -83,7 +84,7 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
                   dataKey="negative"
                   stroke="#f43f5e"
                   strokeWidth={2}
-                  name="负面"
+                  name="Negative"
                   dot={{ r: 3 }}
                 />
               </LineChart>
@@ -92,12 +93,12 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
         </CardContent>
       </Card>
 
-      {/* 情感强度分布 */}
+      {/* Sentiment Intensity Distribution */}
       <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <Heart className="mr-2 h-5 w-5 text-purple-400" />
-            情感强度分布
+            Sentiment Intensity Distribution
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -108,9 +109,9 @@ export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps)
                 <div className="flex-1 mx-4 bg-gray-700 rounded-full h-4">
                   <div
                     className={`h-4 rounded-full ${
-                      label.includes("正面")
+                      label.includes("Positive")
                         ? "bg-green-400"
-                        : label.includes("负面")
+                        : label.includes("Negative")
                         ? "bg-red-400"
                         : "bg-purple-400"
                     }`}

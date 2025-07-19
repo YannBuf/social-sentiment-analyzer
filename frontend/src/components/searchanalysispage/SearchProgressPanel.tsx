@@ -22,13 +22,13 @@ export function SearchProgressPanel({
       <CardHeader>
         <CardTitle className="text-white flex items-center">
           <Globe className="mr-2 h-5 w-5" />
-          搜索进度
+          Search Progress
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-300">正在搜索相关内容...</span>
+            <span className="text-gray-300">Searching for related content...</span>
             <span className="text-white">{searchProgress}%</span>
           </div>
           <Progress value={searchProgress} className="h-2" />

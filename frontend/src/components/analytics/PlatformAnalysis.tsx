@@ -16,9 +16,9 @@ import {
 import { Globe } from "lucide-react"
 
 const sentimentColors = {
-  正面: "#8b5cf6", // 亮紫
-  中性: "#64748b", // 柔灰
-  负面: "#c084fc", // 粉紫
+  Positive: "#8b5cf6", // Bright Purple
+  Neutral: "#64748b",  // Soft Gray
+  Negative: "#c084fc", // Pink Purple
 }
 
 export default function PlatformAnalysis() {
@@ -28,22 +28,23 @@ export default function PlatformAnalysis() {
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
   const [sentimentData, setSentimentData] = useState<{ name: string; value: number }[] | null>(null)
   const [loadingSentiment, setLoadingSentiment] = useState(false)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  // 页面加载时拉取提及量数据
+  // Fetch mention data on load
   useEffect(() => {
-    fetch("http://localhost:8000/api/platforms/mentions")
+    fetch(`${API_BASE}/platforms/mentions`)
       .then((res) => res.json())
       .then((data) => setPlatformMentionData(data))
       .catch(console.error)
   }, [])
 
-  // 点击条形图时拉取情感数据
+  // Fetch sentiment data on bar click
   const onBarClick = (platform: string) => {
     setSelectedPlatform(platform)
     setLoadingSentiment(true)
-    fetch(`http://localhost:8000/api/platforms/${platform}/sentiment`)
+    fetch(`${API_BASE}/platforms/${platform}/sentiment`)
       .then((res) => {
-        if (!res.ok) throw new Error("获取情感数据失败")
+        if (!res.ok) throw new Error("Failed to fetch sentiment data")
         return res.json()
       })
       .then((data) => setSentimentData(data))
@@ -56,14 +57,14 @@ export default function PlatformAnalysis() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* 各平台提及量条形图 */}
+      {/* Mentions bar chart per platform */}
       <Card
         className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md lg:col-span-2 cursor-pointer"
       >
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <Globe className="mr-2 h-5 w-5 text-purple-400" />
-            各平台提及量（点击查看情感分布）
+            Platform Mentions (Click to view sentiment distribution)
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -97,17 +98,17 @@ export default function PlatformAnalysis() {
         </CardContent>
       </Card>
 
-      {/* 右侧情感饼图 */}
+      {/* Sentiment pie chart on the right */}
       {loadingSentiment ? (
         <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md flex items-center justify-center text-gray-400">
-          <p>加载中...</p>
+          <p>Loading...</p>
         </Card>
       ) : sentimentData && selectedPlatform ? (
         <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <Globe className="mr-2 h-5 w-5 text-purple-400" />
-              {selectedPlatform} 情感分布
+              {selectedPlatform} Sentiment Distribution
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -139,7 +140,7 @@ export default function PlatformAnalysis() {
         </Card>
       ) : (
         <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md flex items-center justify-center text-gray-400">
-          <p className="text-center p-4">请点击左侧条形图查看对应平台的情感分布</p>
+          <p className="text-center p-4">Please click a bar on the left to view sentiment distribution for that platform.</p>
         </Card>
       )}
     </div>

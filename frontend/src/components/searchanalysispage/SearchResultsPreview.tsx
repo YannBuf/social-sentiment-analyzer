@@ -8,7 +8,7 @@ interface SearchResult {
   id: string;
   platform: string;
   author: string;
-  publishTime: string; // 或者 Date，根据你接收的数据决定
+  publishTime: string; // or Date, depending on your data
   content: string;
   likes?: number;
   comments?: number;
@@ -32,10 +32,10 @@ export function SearchResultsPreview({ searchResults }: SearchResultsPreviewProp
         <div className="flex items-center justify-between">
           <CardTitle className="text-white flex items-center">
             <MessageSquare className="mr-2 h-5 w-5" />
-            搜索结果预览
+            Search Results Preview
           </CardTitle>
           <Badge className="bg-green-500/20 text-green-400">
-            找到 {searchResults.length} 条相关内容
+            Found {searchResults.length} related results
           </Badge>
         </div>
       </CardHeader>
@@ -75,7 +75,7 @@ export function SearchResultsPreview({ searchResults }: SearchResultsPreviewProp
                 className="bg-transparent border-white/20 text-white"
                 onClick={() => setShowAll(!showAll)}
               >
-                {showAll ? "收起" : `查看全部 ${searchResults.length} 条结果`}
+                {showAll ? "Show Less" : `View All ${searchResults.length} Results`}
               </Button>
             </div>
           )}

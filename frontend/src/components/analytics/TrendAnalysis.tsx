@@ -27,20 +27,20 @@ const keywordTrendData = [
 ]
 
 const contentTypeData = [
-  { type: "文字", count: 1200 },
-  { type: "图片", count: 900 },
-  { type: "视频", count: 600 },
+  { type: "Text", count: 1200 },
+  { type: "Image", count: 900 },
+  { type: "Video", count: 600 },
 ]
 
 export default function TrendAnalysis() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* 关键词趋势折线图 */}
+      {/* Keyword Trend Line Chart */}
       <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <TrendingUp className="mr-2 h-5 w-5 text-purple-400" />
-            关键词热度趋势（最近7天）
+            Keyword Popularity Trend (Last 7 Days)
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -56,21 +56,21 @@ export default function TrendAnalysis() {
                   itemStyle={{ color: "#eee" }}
                 />
                 <Legend wrapperStyle={{ color: "#ccc" }} />
-                <Line type="monotone" dataKey="keywordA" stroke="#a78bfa" strokeWidth={2} name="#新品发布会" dot={{ r: 3 }} />
-                <Line type="monotone" dataKey="keywordB" stroke="#8b5cf6" strokeWidth={2} name="#用户体验优化" dot={{ r: 3 }} />
-                <Line type="monotone" dataKey="keywordC" stroke="#c084fc" strokeWidth={2} name="#客服响应时间" dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="keywordA" stroke="#a78bfa" strokeWidth={2} name="#NewProductLaunch" dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="keywordB" stroke="#8b5cf6" strokeWidth={2} name="#UserExperienceOptimization" dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="keywordC" stroke="#c084fc" strokeWidth={2} name="#CustomerServiceResponseTime" dot={{ r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </CardContent>
       </Card>
 
-      {/* 内容类型柱状图 */}
+      {/* Content Type Bar Chart */}
       <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <TrendingUp className="mr-2 h-5 w-5 text-purple-400" />
-            内容类型分布
+            Content Type Distribution
           </CardTitle>
         </CardHeader>
         <CardContent>

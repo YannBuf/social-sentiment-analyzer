@@ -121,14 +121,15 @@ export default function SearchAnalysisPage() {
   const from = searchParams.get("from")
   const isFromDashboard = from === "dashboard"
   const isAuthenticated = true // 假设用户已登录，实际应该从认证状态获取
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const platforms = [
     { id: "reddit", name: "Reddit", icon: "👽" },
-    { id: "douyin", name: "抖音", icon: "🎵" },
-    { id: "xiaohongshu", name: "小红书", icon: "📖" },
-    { id: "zhihu", name: "知乎", icon: "🤔" },
-    { id: "bilibili", name: "B站", icon: "📺" },
-    { id: "toutiao", name: "今日头条", icon: "📰" },
+    { id: "facebook", name: "Facebook", icon: "📘" },
+    { id: "youtube", name: "YouTube", icon: "📺" },
+    { id: "twitter", name: "Twitter (X)", icon: "🐦" },
+    { id: "instagram", name: "Instagram", icon: "📸" },
+    { id: "tiktok", name: "TikTok", icon: "🎵" },
   ]
 
   const handlePlatformToggle = (platformId: string) => {
@@ -161,7 +162,7 @@ const handleSearch = async () => {
   setAnalysisResult(null);  // 清空旧分析结果
 
   try {
-    const res = await fetch("http://localhost:8000/api/search", {
+    const res = await fetch(`${API_BASE}/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -222,7 +223,7 @@ const handleSearch = async () => {
 
 const fetchSearchHistory = async () => {
   const token = localStorage.getItem("token")
-  const res = await fetch("http://localhost:8000/api/search_history",{
+  const res = await fetch(`${API_BASE}/search_history`,{
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -243,7 +244,7 @@ const fetchSearchHistory = async () => {
 }
 const handleViewHistory = async (item) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/search_history/${item.id}/details`, {
+    const res = await fetch(`${API_BASE}/search_history/${item.id}/details`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`, // 如果需要鉴权
       },
@@ -264,7 +265,7 @@ const handleViewHistory = async (item) => {
 
 
 const handleReanalyzeHistory = async (item) => {
-  const res = await fetch(`http://localhost:8000/api/search_history/${item.id}/reanalyze`, {
+  const res = await fetch(`${API_BASE}/search_history/${item.id}/reanalyze`, {
     method: "POST"
   })
   const data = await res.json()
@@ -273,7 +274,7 @@ const handleReanalyzeHistory = async (item) => {
 }
 
 const handleDownloadHistory = async (item) => {
-  const res = await fetch(`http://localhost:8000/api/search_history/${item.id}/download`)
+  const res = await fetch(`${API_BASE}/api/search_history/${item.id}/download`)
   const blob = await res.blob()
   const url = window.URL.createObjectURL(blob)
   const link = document.createElement("a")
@@ -307,7 +308,7 @@ const handleAnalyze = async () => {
   setAnalysisProgress(0);
 
   try {
-    const res = await fetch("http://localhost:8000/api/smart_search_analyze", {
+    const res = await fetch(`${API_BASE}/smart_search_analyze`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -334,7 +335,7 @@ const handleAnalyze = async () => {
     setAnalysisResult(fetchedAnalysis);
 
     // 保存到后端数据库
-    const saveRes = await fetch("http://localhost:8000/api/search_history", {
+    const saveRes = await fetch(`${API_BASE}/search_history`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
@@ -385,7 +386,7 @@ const handleSingleAnalyze = async () => {
   setSingleAnalysisResult(null);
 
   try {
-    const response = await fetch("http://localhost:8000/sentence_analyze", {
+    const response = await fetch(`${API_BASE}/sentence_analyze`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -431,7 +432,7 @@ const handleSingleAnalyze = async () => {
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 bg-white/5 border-white/10">
             <TabsTrigger value="single" className="data-[state=active]:bg-purple-500/20">
-              single-text analysis
+              Single Text Analysis
             </TabsTrigger>
             <TabsTrigger value="search" className="data-[state=active]:bg-purple-500/20">
               Smart Search

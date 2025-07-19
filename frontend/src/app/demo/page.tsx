@@ -14,6 +14,7 @@ export default function DemoPage() {
   const [inputText, setInputText] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [results, setResults] = useState(null)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleAnalyze = async () => {
     if (!inputText.trim()) return;
@@ -22,7 +23,7 @@ export default function DemoPage() {
     setResults(null);
 
     try {
-      const response = await fetch("http://localhost:8000/sentence_analyze", {
+      const response = await fetch(`${API_BASE}/sentence_analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -301,7 +302,6 @@ export default function DemoPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

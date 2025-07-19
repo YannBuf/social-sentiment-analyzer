@@ -6,12 +6,13 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "rec
 import { MessageSquare } from "lucide-react"
 
 const colorSentiment = {
-  正面: "#22c55e",
-  中性: "#9ca3af",
-  负面: "#ef4444",
+  Positive: "#22c55e",
+  Neutral: "#9ca3af",
+  Negative: "#ef4444",
 }
 
 export default function KeywordAnalysis() {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [wordCloudData, setWordCloudData] = useState<{ word: string; size: number }[]>([])
   const [keywordTrendData, setKeywordTrendData] = useState<any[]>([])
   const [keywordSentimentRanking, setKeywordSentimentRanking] = useState<
@@ -19,40 +20,40 @@ export default function KeywordAnalysis() {
   >([])
 
   useEffect(() => {
-    // 拉取词云数据
-    fetch("http://localhost:8000/api/keywords/wordcloud")
+    // Fetch word cloud data
+    fetch(`${API_BASE}/keywords/wordcloud`)
       .then((res) => res.json())
       .then(setWordCloudData)
       .catch(console.error)
 
-    // 拉取关键词热度趋势数据
-    fetch("http://localhost:8000/api/keywords/trend")
+    // Fetch keyword trend data
+    fetch(`${API_BASE}/keywords/trend`)
       .then((res) => res.json())
       .then(setKeywordTrendData)
       .catch(console.error)
 
-    // 拉取关键词情感排行
-    fetch("http://localhost:8000/api/keywords/sentiment-ranking")
+    // Fetch keyword sentiment ranking
+    fetch(`${API_BASE}/keywords/sentiment-ranking`)
       .then((res) => res.json())
       .then(setKeywordSentimentRanking)
       .catch(console.error)
   }, [])
 
-  // 获取趋势图中所有关键词的key（除了date）
+  // Extract all keyword keys from trend data (excluding 'date')
   const trendKeys = keywordTrendData.length > 0 ? Object.keys(keywordTrendData[0]).filter(k => k !== "date") : []
 
-  // 给趋势图的每条折线选不同颜色
+  // Assign different colors to each trend line
   const trendColors = ["#a78bfa", "#8b5cf6", "#c084fc", "#22c55e", "#ef4444"]
 
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 关键词词云 */}
+        {/* Keyword Word Cloud */}
         <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md col-span-1">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <MessageSquare className="mr-2 h-5 w-5 text-purple-400" />
-              关键词词云
+              Keyword Word Cloud
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -70,12 +71,12 @@ export default function KeywordAnalysis() {
           </CardContent>
         </Card>
 
-        {/* 关键词热度趋势折线图 */}
+        {/* Keyword Trend Line Chart */}
         <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md lg:col-span-2">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <MessageSquare className="mr-2 h-5 w-5 text-purple-400" />
-              关键词热度趋势（最近7天）
+              Keyword Popularity Trend (Last 7 Days)
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -106,18 +107,18 @@ export default function KeywordAnalysis() {
         </Card>
       </div>
 
-      {/* 关键词情感排行表格 */}
+      {/* Keyword Sentiment Ranking Table */}
       <Card className="bg-black/40 border border-white/10 backdrop-blur-lg shadow-md">
         <CardHeader>
-          <CardTitle className="text-white">关键词情感排行</CardTitle>
+          <CardTitle className="text-white">Keyword Sentiment Ranking</CardTitle>
         </CardHeader>
         <CardContent>
           <table className="w-full text-left text-gray-300 border-collapse">
             <thead>
               <tr>
-                <th className="pb-2 border-b border-gray-600">关键词</th>
-                <th className="pb-2 border-b border-gray-600">情感</th>
-                <th className="pb-2 border-b border-gray-600">得分</th>
+                <th className="pb-2 border-b border-gray-600">Keyword</th>
+                <th className="pb-2 border-b border-gray-600">Sentiment</th>
+                <th className="pb-2 border-b border-gray-600">Score</th>
               </tr>
             </thead>
             <tbody>

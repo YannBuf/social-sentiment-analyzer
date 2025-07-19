@@ -13,7 +13,6 @@ import {
   Eye,
   RefreshCw,
   Download,
-  Filter,
 } from "lucide-react"
 
 interface SearchHistoryItem {
@@ -44,7 +43,7 @@ export function SearchHistorySection({
     <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-white">搜索历史</CardTitle>
+          <CardTitle className="text-white">Search History</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
@@ -65,10 +64,10 @@ export function SearchHistorySection({
                       }
                     >
                       {item.sentiment === "positive"
-                        ? "正面"
+                        ? "Positive"
                         : item.sentiment === "negative"
-                        ? "负面"
-                        : "中性"}
+                        ? "Negative"
+                        : "Neutral"}
                     </Badge>
                   </div>
                   <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-400">
@@ -78,7 +77,7 @@ export function SearchHistorySection({
                     </div>
                     <div className="flex items-center">
                       <MessageSquare className="mr-1 h-3 w-3" />
-                      {item.resultsCount} 条结果
+                      {item.resultsCount} results
                     </div>
                     <div className="flex items-center">
                       <Globe className="mr-1 h-3 w-3" />

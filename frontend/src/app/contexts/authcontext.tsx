@@ -22,6 +22,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token")
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return
     }
     try {
-      const res = await axios.get("http://localhost:8000/me", {
+      const res = await axios.get(`${API_BASE}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setUser(res.data)
@@ -50,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setLoading(true)
     try {
-      const res = await axios.post("http://localhost:8000/auth/login", { email, password })
+      const res = await axios.post(`${API_BASE}/login`, { email, password })
       localStorage.setItem("token", res.data.access_token)
       await fetchUser()
     } catch (error) {

@@ -17,12 +17,13 @@ export default function SignupPage() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const router = useRouter()
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   // ✅ 注册逻辑
   const handleRegister = async () => {
     setError("")
     try {
-      const res = await fetch("http://localhost:8000/auth/register", {
+      const res = await fetch(`${API_BASE}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
