@@ -10,13 +10,14 @@ const colorSentiment = {
   Neutral: "#9ca3af",
   Negative: "#ef4444",
 }
+type SentimentType = "Positive" | "Neutral" | "Negative";
 
 export default function KeywordAnalysis() {
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [wordCloudData, setWordCloudData] = useState<{ word: string; size: number }[]>([])
   const [keywordTrendData, setKeywordTrendData] = useState<any[]>([])
   const [keywordSentimentRanking, setKeywordSentimentRanking] = useState<
-    { keyword: string; sentiment: string; score: number }[]
+    { keyword: string; sentiment: SentimentType; score: number }[]
   >([])
 
   useEffect(() => {

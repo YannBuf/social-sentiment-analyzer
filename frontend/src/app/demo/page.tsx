@@ -8,12 +8,19 @@ import { Brain, BarChart3, MessageSquare, TrendingUp, Heart, Users, Zap } from "
 import Link from "next/link"
 import { useState } from "react"
 import { Navbar } from "@/components/navigation/navbar"
-import { Footer } from "@/components/navigation/footer"
+import React, { Suspense } from "react"
+type AnalysisResult = {
+  sentiment: "positive" | "neutral" | "negative"
+  confidence: number
+  emotions: Record<string, number>
+  keywords: string[]
+}
+
 
 export default function DemoPage() {
   const [inputText, setInputText] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [results, setResults] = useState(null)
+  const [results, setResults] = useState<AnalysisResult | null>(null)
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleAnalyze = async () => {
@@ -47,6 +54,7 @@ export default function DemoPage() {
   };
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navbar />
 
@@ -303,5 +311,6 @@ export default function DemoPage() {
         </div>
       </section>
     </div>
+  </Suspense>
   )
 }

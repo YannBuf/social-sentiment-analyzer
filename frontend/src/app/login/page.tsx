@@ -12,7 +12,7 @@ import { Navbar } from "@/components/navigation/navbar"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useAuth } from "../contexts/authcontext"
-
+import React, { Suspense } from "react"
 export default function LoginPage() {
   const router = useRouter()
   const { login } = useAuth()
@@ -55,6 +55,7 @@ export default function LoginPage() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <>
       <div className="fixed top-0 left-0 w-full z-50">
       <Navbar />
@@ -135,5 +136,6 @@ export default function LoginPage() {
         </Card>
       </div>
     </>
+    </Suspense>
   )
 }

@@ -140,6 +140,7 @@ export default function DashboardPage() {
         mentions: 0,
         trend: "up",
         lastUpdate: "Pending analysis",
+        frequency: data.frequency ?? "daily",
       }
       console.log("Monitor created:", res)
       setMonitors((prev) => [...prev, newMonitor])

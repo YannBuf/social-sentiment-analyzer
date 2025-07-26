@@ -28,12 +28,14 @@ const routeNames: Record<string, string> = {
 export function Breadcrumb() {
   const pathname = usePathname()
 
+  if (!pathname || pathname === "/") return null
+
   // 不在首页显示面包屑
-  if (pathname === "/") return null
+  //if (pathname === "/") return null
 
   const pathSegments = pathname.split("/").filter(Boolean)
 
-  const breadcrumbItems: BreadcrumbItem[] = [{ name: "首页", href: "/" }]
+  const breadcrumbItems: BreadcrumbItem[] = [{ name: "Home", href: "/" }]
 
   let currentPath = ""
   pathSegments.forEach((segment) => {

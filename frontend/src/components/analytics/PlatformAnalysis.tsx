@@ -15,7 +15,7 @@ import {
 } from "recharts"
 import { Globe } from "lucide-react"
 
-const sentimentColors = {
+const sentimentColors: Record<string, string> = {
   Positive: "#8b5cf6", // Bright Purple
   Neutral: "#64748b",  // Soft Gray
   Negative: "#c084fc", // Pink Purple
@@ -86,7 +86,7 @@ export default function PlatformAnalysis() {
                   fill="#a78bfa"
                   barSize={40}
                   cursor="pointer"
-                  onClick={(data) => {
+                  onClick={(data: any) => {
                     if (data && data.payload && data.payload.platform) {
                       onBarClick(data.payload.platform)
                     }
@@ -122,12 +122,11 @@ export default function PlatformAnalysis() {
                     cx="50%"
                     cy="50%"
                     outerRadius={90}
-                    label={({ name, value }) =>
-                      `${name} (${(
-                        (value / sentimentData.reduce((sum, cur) => sum + cur.value, 0)) *
-                        100
-                      ).toFixed(0)}%)`
-                    }
+                    label={({ name, value }) => {
+                      const total = sentimentData?.reduce((sum, cur) => sum + cur.value, 0) || 1;
+                      const val = value ?? 0;
+                      return `${name} (${((val / total) * 100).toFixed(0)}%)`;
+                    }}
                   >
                     {sentimentData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={sentimentColors[entry.name]} />

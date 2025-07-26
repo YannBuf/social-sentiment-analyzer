@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { Brain, Mail, Lock, User, Github } from "lucide-react"
 import Link from "next/link"
 import { Navbar } from "@/components/navigation/navbar"
+import React, { Suspense } from "react"
 
 export default function SignupPage() {
   const [username, setUsername] = useState("")
@@ -42,6 +43,7 @@ export default function SignupPage() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <>
       <div className="fixed top-0 left-0 w-full z-50">
       <Navbar />
@@ -128,5 +130,6 @@ export default function SignupPage() {
         </Card>
       </div>
     </>
+    </Suspense>
   )
 }

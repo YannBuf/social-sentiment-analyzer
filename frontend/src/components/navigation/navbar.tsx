@@ -56,6 +56,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout }: N
   const getDashboardMode = () => {
     if (forceMode) return forceMode === "dashboard"
 
+    if (!searchParams) return false
     // Check if URL params contain source info
     const from = searchParams.get("from")
     if (from === "dashboard") return true
@@ -63,7 +64,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout }: N
 
     // Default logic: show dashboard nav under /dashboard paths
     // For /search-analysis page, if no 'from' param and user is authenticated, show dashboard nav by default
-    if (pathname.startsWith("/dashboard")) return true
+    if (pathname?.startsWith("/dashboard")) return true
     if (pathname === "/search-analysis" && isAuthenticated && !from) return true
 
     return false
@@ -78,7 +79,7 @@ export function Navbar({ isAuthenticated = false, user, forceMode, onLogout }: N
     // Exact match or path starts with href + '/' counts as active
     // But exclude certain subpages
     if (pathname === href) return true
-    if (pathname.startsWith(href + "/")) {
+    if (pathname?.startsWith(href + "/")) {
       // For example, for /dashboard, only activate on /dashboard and some /dashboard/* pages
       // Here exclude some subpaths like analytics
       if (href === "/dashboard") {

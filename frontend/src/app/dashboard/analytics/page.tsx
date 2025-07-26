@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -45,7 +45,7 @@ export default function AnalyticsPage() {
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const searchParams = useSearchParams()
-  const monitorId = searchParams.get('monitorId')
+  const monitorId: string | null = searchParams?.get('monitorId') ?? null
   const [analysisData, setAnalysisData] = useState<any>(null)
 
   const displayUser = {

@@ -14,13 +14,15 @@ import {
 } from "recharts"
 import { Heart } from "lucide-react"
 
-interface SentimentAnalysisProps {
+type SentimentAnalysisProps = {
   monitorId: string | null
+  analysisData: any
 }
 
-export default function SentimentAnalysis({ monitorId }: SentimentAnalysisProps) {
+export default function SentimentAnalysis({ monitorId, analysisData }: SentimentAnalysisProps) {
   const [sentimentTrendData, setSentimentTrendData] = useState([])
-  const [sentimentIntensityData, setSentimentIntensityData] = useState([])
+  const [sentimentIntensityData, setSentimentIntensityData] = useState<{ label: string; value: number }[]>([])
+
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
   
   useEffect(() => {

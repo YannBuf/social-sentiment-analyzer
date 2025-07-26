@@ -1,13 +1,14 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Check, Star, Zap } from "lucide-react"
 import Link from "next/link"
 import { Navbar } from "@/components/navigation/navbar"
-import { Footer } from "@/components/navigation/footer"
-
+import React, { Suspense } from "react"
 export default function PricingPage() {
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navbar />
 
@@ -294,5 +295,6 @@ export default function PricingPage() {
         </div>
       </section>
     </div>
+  </Suspense>
   )
 }

@@ -73,6 +73,26 @@ interface SingleAnalysisResult {
   keywords: string[];
 }
 
+interface SearchHistoryItem {
+  id: string | number;
+  query: string;
+  timestamp: string;
+  resultsCount: number;
+  sentiment: string; // 这里是映射后的"positive"/"negative"/"neutral"
+  platforms: string[];
+  [key: string]: any; // 兼容其他字段
+}
+
+interface SearchHistoryStateItem {
+  id: string | number;
+  query: string;
+  timestamp: string;
+  resultsCount: number;
+  sentiment: string;
+  platforms: string[];
+}
+
+
 export default function SearchAnalysisPage() {
   const { user, logout } = useAuth()
   
@@ -85,7 +105,7 @@ export default function SearchAnalysisPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisProgress, setAnalysisProgress] = useState(0)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
-  const [searchHistory, setSearchHistory] = useState([
+  const [searchHistory, setSearchHistory] = useState<SearchHistoryStateItem[]>([
     {
       id: 1,
       query: "人工智能发展趋势",
@@ -118,7 +138,7 @@ export default function SearchAnalysisPage() {
 
 
   // 检测来源以确定导航栏模式
-  const from = searchParams.get("from")
+  const from = searchParams ? searchParams.get("from") : null
   const isFromDashboard = from === "dashboard"
   const isAuthenticated = true // 假设用户已登录，实际应该从认证状态获取
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -230,7 +250,7 @@ const fetchSearchHistory = async () => {
   })
   const raw = await res.json()
 
-  const data = (Array.isArray(raw) ? raw : raw.data || []).map((item) => ({
+  const data: SearchHistoryItem[] = (Array.isArray(raw) ? raw : raw.data || []).map((item: any) => ({
     ...item,
     sentiment:
       item.sentiment === "正面"
@@ -242,11 +262,13 @@ const fetchSearchHistory = async () => {
 
   setSearchHistory(data)
 }
-const handleViewHistory = async (item) => {
+
+// 其他函数也加类型声明
+const handleViewHistory = async (item: SearchHistoryItem) => {
   try {
     const res = await fetch(`${API_BASE}/search_history/${item.id}/details`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // 如果需要鉴权
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     if (!res.ok) throw new Error("获取详情失败");
@@ -264,7 +286,7 @@ const handleViewHistory = async (item) => {
 };
 
 
-const handleReanalyzeHistory = async (item) => {
+const handleReanalyzeHistory = async (item: SearchHistoryItem) => {
   const res = await fetch(`${API_BASE}/search_history/${item.id}/reanalyze`, {
     method: "POST"
   })
@@ -273,7 +295,8 @@ const handleReanalyzeHistory = async (item) => {
   fetchSearchHistory()
 }
 
-const handleDownloadHistory = async (item) => {
+
+const handleDownloadHistory = async (item: SearchHistoryItem) => {
   const res = await fetch(`${API_BASE}/api/search_history/${item.id}/download`)
   const blob = await res.blob()
   const url = window.URL.createObjectURL(blob)
@@ -284,7 +307,6 @@ const handleDownloadHistory = async (item) => {
   link.click()
   link.remove()
 }
-
 
 
 

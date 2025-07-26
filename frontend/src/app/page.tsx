@@ -23,6 +23,7 @@ import { Navbar } from "@/components/navigation/navbar"
 import { useAuth } from "./contexts/authcontext"
 import { useContext } from "react"
 import { useRouter } from "next/navigation"
+import React, { Suspense } from "react"
 
 export default function HomePage() {
   const { user } = useAuth()
@@ -37,6 +38,7 @@ export default function HomePage() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navbar isAuthenticated={false} forceMode="public" />
 
@@ -423,5 +425,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+  </Suspense>
   )
 }

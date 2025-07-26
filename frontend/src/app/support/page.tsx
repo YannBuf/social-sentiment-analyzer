@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -6,10 +7,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { MessageCircle, Mail, Phone, Clock, HelpCircle, Book, Video, Send } from "lucide-react"
 import { Navbar } from "@/components/navigation/navbar"
-import { Footer } from "@/components/navigation/footer"
+
+import React, { Suspense } from "react"
 
 export default function SupportPage() {
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navbar />
 
@@ -210,5 +213,6 @@ export default function SupportPage() {
 
 
     </div>
+    </Suspense>
   )
 }

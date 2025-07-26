@@ -1,10 +1,11 @@
+/*
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
 
 export default function AppRoutes() {
-  const isLoggedIn = Boolean(localStorage.getItem('token')); // ¼òµ¥Ê¾Àý
+  const isLoggedIn = Boolean(localStorage.getItem('token')); // ï¿½ï¿½Ê¾ï¿½ï¿½
 
   return (
     <Routes>
@@ -16,4 +17,4 @@ export default function AppRoutes() {
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
-}
+}*/
