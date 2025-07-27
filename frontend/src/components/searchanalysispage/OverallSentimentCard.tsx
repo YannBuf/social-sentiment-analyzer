@@ -21,12 +21,23 @@ export function OverallSentimentCard({
 }: OverallSentimentCardProps) {
   const getBadgeClass = () => {
     switch (label) {
-      case "积极":
+      case "positive":
         return "bg-green-500/20 text-green-400"
-      case "消极":
+      case "negative":
         return "bg-red-500/20 text-red-400"
       default:
         return "bg-gray-500/20 text-gray-400"
+    }
+  }
+
+  const getBarClass = () => {
+    switch (label) {
+      case "positive":
+        return "bg-green-400"
+      case "negative":
+        return "bg-red-400"
+      default:
+        return "bg-gray-400"
     }
   }
 
@@ -61,7 +72,7 @@ export function OverallSentimentCard({
             </div>
             <div className="w-full bg-gray-700 rounded-full h-2">
               <div
-                className="bg-green-400 h-2 rounded-full"
+                className={`${getBarClass()} h-2 rounded-full`}
                 style={{ width: `${score * 100}%` }}
               ></div>
             </div>
